@@ -1,7 +1,7 @@
 
 
 function Navbar(props){
-    let {changeFunc,itemsInCart} = props
+    let {changeFunc,itemsInCart,showCart} = props
     
 
     return(
@@ -19,7 +19,7 @@ function Navbar(props){
                     </select>
                 </div>
                 <div>
-                    <button className="cart-btn"><span class="material-symbols-outlined">shopping_cart</span>Cart<span>{itemsInCart}</span></button>
+                    <button onClick={(e)=>showCart(e)} className="cart-btn"><span class="material-symbols-outlined">shopping_cart</span>Cart<span>{itemsInCart}</span></button>
                 </div>
             </div>
         </div>
