@@ -5,6 +5,7 @@ import Header from './Header'
 import Main from './Main';
 import Footer from './Footer';
 import UserCart from './UserCart';
+import StarRating from './Star-rating';
 
 
 function App() {
@@ -92,6 +93,7 @@ let [itemsInCart, setItemsInCart] = useState(0)
 let [cart, setCart] = useState([])
 
 
+
 let filtered = data.filter(data => {
   if(currentProducts === "All Products"){
     return true
@@ -117,7 +119,7 @@ let products = filtered.map((product,index)=>{
               <h5>{product.brandName}</h5>
               <a href={product.productUrl} target="blank"><p>{product.productName}</p></a>
               <p>₹{product.price}</p>
-              {/* <p>{rating}</p> */}
+              <StarRating/>
               <button id={product.id} onClick={(e)=>handleAddToCartBtn(e)}>Add to cart</button>
           </div>
       </div>
@@ -145,25 +147,20 @@ const handleChangeForFilterBtn = (e)=>{
   setCurrentProducts(e.target.value) 
 }
 
+
+
 const handleAddToCartBtn = (e)=>{
+
   e.target.setAttribute("disabled",true)
   e.target.textContent = "Added to cart"
   let product = e.target.id
   cart.push(data[product-1])
   setItemsInCart(cart.length)
-  handleRemoveDisable(e.target)
 }
 
 
 const handleRemoveDisable = (button)=>{
-  
-
-
-  if(button.textContent === "Add to cart"){
-    console.log("Add to cart Button Clicked");
-  } else {
-    console.log("Remove Button Clicked");
-  }
+  console.log(button);
 }
 
 

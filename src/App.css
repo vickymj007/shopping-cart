@@ -188,3 +188,16 @@
   color: #fff;
 }
 
+.star-group button {
+  cursor: pointer;
+  background-color: unset;
+  outline: none;
+  border: none;
+  font-size: 20px;
+}
+.on {
+  color: goldenrod;
+}
+.off{
+  color: #212529;
+}
