@@ -108,7 +108,7 @@ let filtered = data.filter(data => {
   }
 })
 
-
+let sampleValue = false
 let products = filtered.map((product,index)=>{
   return(
       <div className="product-container" key={index}>
@@ -121,7 +121,6 @@ let products = filtered.map((product,index)=>{
               <p>₹{product.price}</p>
               <StarRating/>
               <button id={product.id} onClick={(e)=>handleAddToCartBtn(e)}>Add to cart</button>
-              
           </div>
       </div>
   )
@@ -167,6 +166,7 @@ const handleAddToCartBtn = (e)=>{
   if(cart.length === 0){
     setCartStyle({display:"none"})
   }
+  sampleValue && setCart([0])
 
 }
 
@@ -187,7 +187,7 @@ const displayUserCart = (e)=>{
   return (
     <div className="App">
       <Navbar changeFunc={handleChangeForFilterBtn} itemsInCart = {itemsInCart} showCart={displayUserCart}/>
-      <UserCart userCart={userCart} cartStyle= {cartStyle} hideCart={displayUserCart} cart={cart}/>
+      <UserCart userCart={userCart} cartStyle= {cartStyle} hideCart={displayUserCart} cart={cart} />
       <Header/>
       <Main data ={products}/>
       <Footer/>
