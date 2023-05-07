@@ -108,8 +108,8 @@ let filtered = data.filter(data => {
   }
 })
 
-let products = filtered.map((product,index)=>{
 
+let products = filtered.map((product,index)=>{
   return(
       <div className="product-container" key={index}>
           <div className="img-container">
@@ -121,10 +121,13 @@ let products = filtered.map((product,index)=>{
               <p>₹{product.price}</p>
               <StarRating/>
               <button id={product.id} onClick={(e)=>handleAddToCartBtn(e)}>Add to cart</button>
+              
           </div>
       </div>
   )
 })
+
+
 
 let userCart = cart.map((product,index)=>{
   return(
@@ -135,10 +138,7 @@ let userCart = cart.map((product,index)=>{
       <div className='cart-details'>
         <p>{product.productName}</p>
         <p>₹{product.price}</p>
-      </div>    
-      <div>
-        <button id={product.id} onClick={(e)=>handleRemoveItemFromCartBtn(e)}>Remove Item</button>
-      </div>  
+      </div>
     </div>
   )
 })
@@ -150,34 +150,24 @@ const handleChangeForFilterBtn = (e)=>{
 
 
 const handleAddToCartBtn = (e)=>{
-
-  e.target.setAttribute("disabled",true)
-  e.target.textContent = "Added to cart"
   let product = e.target.id
-  cart.push(data[product-1])
+  if(e.target.textContent === "Add to cart"){
+    e.target.textContent = "Remove from cart"
+    
+    cart.push(data[product-1])
+  } else {
+    e.target.textContent = "Add to cart"
+    cart.forEach((item,index)=>{
+      if(item.id === +product){
+        cart.splice(index,1)
+      } 
+    })
+  }
   setItemsInCart(cart.length)
-}
-
-
-const handleRemoveDisable = (button)=>{
-  console.log(button);
-}
-
-
-
-const handleRemoveItemFromCartBtn = (e)=>{
-  let product = e.target.id
-  
-  cart.forEach((item,index)=>{
-    if(item.id === +product){
-      cart.splice(index,1)
-    } 
-  })
-  setItemsInCart(cart.length)
-  handleRemoveDisable(e.target)
   if(cart.length === 0){
     setCartStyle({display:"none"})
   }
+
 }
 
 
@@ -197,7 +187,7 @@ const displayUserCart = (e)=>{
   return (
     <div className="App">
       <Navbar changeFunc={handleChangeForFilterBtn} itemsInCart = {itemsInCart} showCart={displayUserCart}/>
-      <UserCart userCart={userCart} cartStyle= {cartStyle} hideCart={displayUserCart}/>
+      <UserCart userCart={userCart} cartStyle= {cartStyle} hideCart={displayUserCart} cart={cart}/>
       <Header/>
       <Main data ={products}/>
       <Footer/>
